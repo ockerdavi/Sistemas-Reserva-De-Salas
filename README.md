@@ -1,6 +1,3 @@
-Claro! Aqui o conteúdo completo do README pra você copiar e colar direto:
-
-```markdown
 <div align="center">
 
 # 🏫 Reserva de Salas
