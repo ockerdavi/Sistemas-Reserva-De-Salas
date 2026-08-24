@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Nova Reserva</title>
+</head>
+<body>
+    <h1>Criar Reserva</h1>
+
+    <div th:if="${erro}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
+        <strong>Erro:</strong> <span th:text="${erro}"></span>
+    </div>
+
+    <form th:action="@{/reservas}" th:object="${reserva}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label>Sala:</label>
+        <select th:field="*{sala}" required>
+            <option th:each="s : ${salas}" th:value="${s.id}" th:text="${s.nome}"></option>
+        </select><br><br>
+
+        <label>Usuário:</label>
+        <select th:field="*{usuario}" required>
+            <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nome}"></option>
+        </select><br><br>
+
+        <label>Data:</label>
+        <input type="date" th:field="*{data}" required><br><br>
+
+        <label>Horário Início:</label>
+        <input type="time" th:field="*{horarioInicio}" required><br><br>
+
+        <label>Horário Fim:</label>
+        <input type="time" th:field="*{horarioFim}" required><br><br>
+
+        <label>Motivo:</label>
+        <input type="text" th:field="*{motivo}"><br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <br>
+    <a th:href="@{/reservas}">Voltar</a>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            var inicio = document.getElementById('horarioInicio').value;
+            var fim = document.getElementById('horarioFim').value;
+            
+            if (inicio >= fim) {
+                alert('O horário de fim deve ser depois do horário de início!');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Nova Sala</title>
+</head>
+<body>
+    <h1>Cadastrar Sala</h1>
+
+    <form th:action="@{/salas}" th:object="${sala}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" required><br><br>
+
+        <label>Capacidade:</label>
+        <input type="number" th:field="*{capacidade}" required><br><br>
+
+        <label>Descrição:</label>
+        <input type="text" th:field="*{descricao}"><br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <br>
+    <a th:href="@{/salas}">Voltar</a>
+</body>
+</html>

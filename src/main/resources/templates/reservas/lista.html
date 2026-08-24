@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Reservas</title>
+</head>
+<body>
+    <h1>Lista de Reservas</h1>
+
+    <form th:action="@{/reservas}" method="get">
+        <label>Filtrar por Sala:</label>
+        <select name="salaId">
+            <option value="">Todas</option>
+            <option th:each="s : ${salas}" 
+                    th:value="${s.id}" 
+                    th:text="${s.nome}"
+                    th:selected="${salaFiltro} == ${s.id}"></option>
+        </select>
+        <button type="submit">Filtrar</button>
+        <a th:href="@{/reservas}"><button type="button">Limpar</button></a>
+    </form>
+
+    <br>
+
+    <a th:href="@{/reservas/nova}">Nova Reserva</a>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Sala</th>
+            <th>Usuário</th>
+            <th>Data</th>
+            <th>Início</th>
+            <th>Fim</th>
+            <th>Motivo</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.id}"></td>
+            <td th:text="${reserva.sala.nome}"></td>
+            <td th:text="${reserva.usuario.nome}"></td>
+            <td th:text="${reserva.data}"></td>
+            <td th:text="${reserva.horarioInicio}"></td>
+            <td th:text="${reserva.horarioFim}"></td>
+            <td th:text="${reserva.motivo}"></td>
+            <td>
+                <a th:href="@{/reservas/excluir/{id}(id=${reserva.id})}" onclick="return confirm('Tem certeza?')">Excluir</a>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <a th:href="@{/salas}">Salas</a> | <a th:href="@{/usuarios}">Usuários</a>
+</body>
+</html>
